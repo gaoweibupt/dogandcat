@@ -20,4 +20,11 @@ public class HelloController {
         logger.info("heiheihei");
         return "hello! " + name;
     }
+
+    @RequestMapping("/login")
+    public String login(){
+        logger.info("to login");
+        return "login";
+    }
+
 }

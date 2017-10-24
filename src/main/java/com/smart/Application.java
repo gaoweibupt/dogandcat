@@ -1,5 +1,6 @@
 package com.smart;
 
+import org.apache.ibatis.javassist.bytecode.Descriptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -8,18 +9,20 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
+import java.util.Iterator;
 
 /**
  * Created by gaowei on 2017/10/18.
  */
-@EnableAutoConfiguration
-@SpringBootApplication
-@ComponentScan
+//@EnableAutoConfiguration
+@SpringBootApplication //@ComponentScan + @EnableAutoConfiguration
+//@ComponentScan
 @MapperScan("com.smart.mapper")
 public class Application {
     private static Logger logger = Logger.getLogger(Application.class);
@@ -46,7 +49,11 @@ public class Application {
      * start
      * */
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
+        Iterator<String> itors = ctx.getBeanFactory().getBeanNamesIterator();
+        while(itors.hasNext()){
+            System.out.println(itors.next());
+        }
         logger.info("spring boot is started successfully");
     }
 }
